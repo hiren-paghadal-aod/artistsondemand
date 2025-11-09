@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AOD | Artists On Demand - Book Your Super Artist Now</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f97316;
+            /* Tailwind orange-600 */
+            --accent-color: #0ea5e9;
+            /* Tailwind sky-500 for secondary action/highlights */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            /* Slate 900 - Dark energetic background */
+            color: #f1f5f9;
+            /* Light text */
+            scroll-behavior: smooth;
+        }
+
+        .text-gradient {
+            background-image: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .artist-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.5), 0 0 15px var(--accent-color);
+        }
+
+        /* Custom Modal Styling */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Success Modal (Hidden by Default) -->
+    <div id="successModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0">
+        <div
+            class="bg-slate-800 rounded-xl p-6 shadow-2xl max-w-sm w-full transform transition-all scale-95 duration-300">
+            <div class="text-center">
+                <!-- Checkmark Icon SVG -->
+                <svg class="w-16 h-16 mx-auto text-primary-color mb-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <h3 class="text-2xl font-bold text-white mb-2">Demand Received!</h3>
+                <p class="text-slate-300">Your request is now with our "Super Artist" management team. We'll connect you
+                    with the perfect talent within 24 hours!</p>
+                <button onclick="closeModal()"
+                    class="mt-5 w-full py-2 bg-primary-color text-white font-semibold rounded-lg hover:bg-orange-500 transition duration-150">
+                    Awesome!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="p-4 md:p-6 sticky top-0 bg-slate-900/90 backdrop-blur-sm z-40 border-b border-primary-color/20">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <a href="#" class="text-3xl font-extrabold text-gradient tracking-tight">
+                    AOD<span class="text-white text-lg font-medium">/Artists On Demand</span>
+                </a>
+                <div class="flex items-center">
+                    <a href="#artists-types"
+                        class="text-white px-2 py-2 rounded-lg shadow-lg hover:bg-primary-color transition duration-300 transform hover:scale-105">
+                        Artists
+                    </a>
+                    <a href="https://forms.gle/NKZnVXbqRcY8pTcC9"
+                        class="bg-orange-600 text-white px-2 py-2 rounded-lg font-semibold shadow-lg hover:bg-orange-500 transition duration-300 transform hover:scale-105">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative py-16 md:py-32 text-center overflow-hidden">
+            <!-- Background effects (subtle energy) -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-10"
+                style="background-image: url('https://placehold.co/1920x1080/0f172a/f97316?text=Artistic+Energy');">
+            </div>
+            <div class="relative z-10 max-w-4xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+                    <span class="text-gradient">Book World-Class Artists.</span> Instantly.
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto">
+                    From AOD, get vetted "Super Artists" for your next big grand event.
+                </p>
+            </div>
+        </section>
+        <!-- <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <a href="#artists-types"
+                class="inline-block bg-accent-color text-white text-lg px-8 py-3 rounded-xl font-bold shadow-xl shadow-accent-color/40 hover:bg-sky-400 transition duration-300 transform hover:scale-105">
+                Explore Super Artists
+            </a>
+        </div> -->
+        <!-- Artist Categories Section -->
+        <section id="artists-types" class="py-24 bg-slate-900">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-white">Our Super Artist Roster</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Mehndi -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L15 9H9L12 2z" />
+                            <!-- cone tip -->
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v13" /> <!-- cone body -->
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 22c3-2 6-5 6-9s-3-7-6-9c-3 2-6 5-6 9s3 7 6 9z" />
+                            <!-- swirl/hand-like pattern -->
+                        </svg>
+                        <p class="text-lg font-semibold">Mehndi Artists</p>
+                    </div>
+                    <!-- Photographers -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
+                        <svg class="w-12 h-12 mx-auto text-accent-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.218A2 2 0 0110.456 4h3.088a2 2 0 011.664.89l.812 1.218A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Photographers</p>
+                    </div>
+                    <!-- Singer -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.75 2.75a3.5 3.5 0 0 1 4.95 4.95l-8.49 8.49a3.5 3.5 0 0 1-4.95-4.95l8.49-8.49zm-2.12 11.61l2.12 2.12m-10.61 2.12l3.54-3.54" />
+                        </svg>
+                        <p class="text-lg font-semibold">Singer</p>
+                    </div>
+                    <!-- Musicians -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 19V7l7-3.5L16 17zM9 19c0 1.105-1.79 2-4 2s-4-.895-4-2h8zM16 17c0 1.105-1.79 2-4 2s-4-.895-4-2h8z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Musicians</p>
+                    </div>
+                    <!-- Make-up Artist -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
+                        <svg class="w-12 h-12 mx-auto text-accent-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.663 17.171a4.5 4.5 0 004.814 0 2.25 2.25 0 001.378-2.147l-.187-1.111-2.61-3.914a1.75 1.75 0 00-2.909 0l-2.61 3.914-.187 1.111a2.25 2.25 0 001.378 2.147zM10.875 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Make-up Artist</p>
+                    </div>
+                    <!-- Anchor -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
+                        <svg class="w-12 h-12 mx-auto text-accent-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 2v4m0 0a4 4 0 014 4H8a4 4 0 014-4zm0 0v8m-7 0a7 7 0 0014 0h-2a5 5 0 01-10 0H5z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Anchor</p>
+                    </div>
+                    <!-- Choreographer -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
+                        <svg class="w-12 h-12 mx-auto text-accent-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 4a2 2 0 110 4 2 2 0 010-4zm0 4l2 4h3l-2 3-1 5h-2l-1-4-3 4H6l3-5-2-3h3l2-4z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Choreographer</p>
+                    </div>
+                    <!-- Cartoon-Mascot-->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" viewBox="0 0 64 64" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <!-- Head -->
+                            <circle cx="32" cy="32" r="30" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Eyes -->
+                            <circle cx="22" cy="28" r="4" fill="currentColor" />
+                            <circle cx="42" cy="28" r="4" fill="currentColor" />
+                            <!-- Smile -->
+                            <path d="M20 42c4 4 16 4 20 0" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Cheeks -->
+                            <circle cx="18" cy="38" r="2" fill="currentColor" />
+                            <circle cx="46" cy="38" r="2" fill="currentColor" />
+                            <!-- Optional playful tuft/hair -->
+                            <path d="M32 4c2 6 4 6 6 0" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <p class="text-lg font-semibold">Cartoon-Mascot</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-primary-color/20 p-8">
+        <div class="max-w-7xl mx-auto text-center text-slate-400">
+            <p class="text-xl font-bold mb-2 text-gradient">AOD</p>
+            <p class="text-sm">Connecting you with the best artistic talent, on demand. &copy; 2025 Artists On Demand.
+            </p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Privacy Policy</a>
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Terms of Service</a>
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Become an Artist</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Form Handling and Modal -->
+    <script>
+        document.getElementById('demandForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Stop the form from submitting normally
+
+            // 1. Collect form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                contact: document.getElementById('contact').value,
+                artistType: document.getElementById('artistType').value,
+                description: document.getElementById('description').value
+            };
+
+            // 2. Placeholder for API/Backend Call (where you'd send the demand)
+            console.log("Customer Demand Submitted:", formData);
+            // In a real application, you would use fetch() here to send this data to your server/database.
+            // Example:
+            /*
+            fetch('/api/submit-demand', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    showModal();
+                    event.target.reset(); // Clear form on success
+                } else {
+                    console.error('Submission failed.');
+                    // Handle error state
+                }
+            })
+            .catch(error => {
+                console.error('Error during submission:', error);
+            });
+            */
+
+            // 3. For this example, we just simulate success and show the modal
+            showModal();
+            event.target.reset(); // Clear the form fields
+        });
+
+        // Function to show the custom success modal
+        function showModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('invisible', 'opacity-0');
+            modal.classList.add('visible', 'opacity-100');
+            // Allow clicking outside the modal to close it
+            modal.addEventListener('click', closeModalOutside);
+            // Re-center on mobile resize
+            window.addEventListener('resize', centerModal);
+            centerModal();
+        }
+
+        // Function to close the custom success modal
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('visible', 'opacity-100');
+            modal.classList.add('invisible', 'opacity-0');
+            modal.removeEventListener('click', closeModalOutside);
+            window.removeEventListener('resize', centerModal);
+        }
+
+        // Handle closing when clicking outside the inner content
+        function closeModalOutside(event) {
+            const modal = document.getElementById('successModal');
+            const innerContent = modal.querySelector('div:not(.modal)');
+            if (!innerContent.contains(event.target) && event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Basic function to ensure modal content is centered (helpful for mobile)
+        function centerModal() {
+            const modal = document.getElementById('successModal');
+            const content = modal.querySelector('div:not(.modal)');
+            if (content) {
+                // Not strictly necessary with flex, but good practice for transform transitions
+                content.style.marginTop = (window.innerHeight - content.offsetHeight) / 2 + 'px';
+            }
+        }
+
+        // Initial check to remove temporary style if JS fails
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.display = '';
+        });
+
+    </script>
+</body>
+
+</html>
