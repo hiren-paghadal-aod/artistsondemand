@@ -54,6 +54,7 @@
             gap: 25px;
         }
 
+
         .box {
             position: relative;
             width: 280px;
@@ -83,7 +84,7 @@
             width: 100%;
             padding: 10px 0;
             background: rgba(0, 0, 0, 0.6);
-            color:orange;
+            color: orange;
             font-size: 1.2em;
             font-weight: 600;
             text-transform: uppercase;
@@ -100,23 +101,48 @@
             font-size: 1em;
         }
 
-        /* Royal animation effect */
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px orange;
-            }
+        .caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: orange;
+            font-size: 1.2em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            justify-content: center;
+            text-align: center;
+        }
 
-            50% {
-                box-shadow: 0 0 30px goldenrod;
+        footer {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 1em;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #f97316;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
             }
 
             100% {
-                box-shadow: 0 0 10px orange;
+                transform: rotate(360deg);
             }
-        }
-
-        .box:hover {
-            animation: glow 2s infinite;
         }
     </style>
 </head>
@@ -130,7 +156,7 @@
             class="bg-slate-800 rounded-xl p-6 shadow-2xl max-w-sm w-full transform transition-all scale-95 duration-300">
             <div class="text-center">
                 <!-- Checkmark Icon SVG -->
-                <svg class="w-16 h-16 mx-auto text-primary-color mb-4" viewBox="0 0 24 24" fill="none"
+                <svg class="w-16 h-16 mx-auto text-orange-600 mb-4" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
@@ -138,8 +164,31 @@
                 <p class="text-slate-300">Your request is now with our "Super Artist" management team. We'll connect you
                     with the perfect talent within 24 hours!</p>
                 <button onclick="closeModal()"
-                    class="mt-5 w-full py-2 bg-primary-color text-white font-semibold rounded-lg hover:bg-orange-500 transition duration-150">
+                    class="mt-5 w-full py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-500 transition duration-150">
                     Awesome!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0">
+        <div
+            class="bg-slate-800 rounded-xl p-6 shadow-2xl max-w-sm w-full transform transition-all scale-95 duration-300">
+            <div class="text-center">
+                <!-- Error Icon SVG -->
+                <svg class="w-16 h-16 mx-auto text-red-500 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                <h3 class="text-2xl font-bold text-white mb-2">Submission Failed</h3>
+                <p id="errorMessage" class="text-slate-300">Something went wrong. Please try again.</p>
+                <button onclick="closeErrorModal()"
+                    class="mt-5 w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-150">
+                    Try Again
                 </button>
             </div>
         </div>
@@ -151,15 +200,15 @@
         <header class="p-4 md:p-6 sticky top-0 bg-slate-900/90 backdrop-blur-sm z-40 border-b border-primary-color/20">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
                 <a href="#" class="text-3xl font-extrabold text-gradient tracking-tight">
-                    AOD<span class="text-white text-lg font-medium"><br>Artists On Demand</span>
+                    AOD<span class="text-white text-lg font-medium">/Artists On Demand</span>
                 </a>
-                <div class="flex items-center">
+                <div class="flex items-center gap-4">
                     <a href="#artists-types"
-                        class="text-white px-2 py-2 rounded-lg shadow-lg hover:bg-primary-color transition duration-300 transform hover:scale-105">
+                        class="text-white px-4 py-2 rounded-lg shadow-lg hover:bg-primary-color transition duration-300 transform hover:scale-105">
                         Artists
                     </a>
-                    <a href="https://forms.gle/NKZnVXbqRcY8pTcC9"
-                        class="bg-orange-600 text-center text-white px-2 py-2 rounded-lg font-semibold shadow-lg hover:bg-orange-500 transition duration-300 transform hover:scale-105">
+                    <a href="#booking-form"
+                        class="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:bg-orange-500 transition duration-300 transform hover:scale-105">
                         Book Now
                     </a>
                 </div>
@@ -172,26 +221,33 @@
             <div class="absolute inset-0 bg-cover bg-center opacity-10"
                 style="background-image: url('https://placehold.co/1920x1080/0f172a/f97316?text=Artistic+Energy');">
             </div>
+
             <div class="relative z-10 max-w-4xl mx-auto px-4">
                 <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
-                    <span class="text-gradient">Book World-Class Artists</span> Instantly
+                    <span class="text-gradient">Book World-Class Artists</span> Instantly.
                 </h1>
                 <p class="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto">
                     From AOD, get vetted "Super Artists" for your next big grand event.
                 </p>
             </div>
         </section>
-        <!-- <div class="relative z-10 max-w-4xl mx-auto px-4">
-            <a href="#artists-types"
-                class="inline-block bg-accent-color text-white text-lg px-8 py-3 rounded-xl font-bold shadow-xl shadow-accent-color/40 hover:bg-sky-400 transition duration-300 transform hover:scale-105">
-                Explore Super Artists
-            </a>
-        </div> -->
+
         <!-- Artist Categories Section -->
         <section id="artists-types" class="py-24 bg-slate-900">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-white">Our Super Artist Roster</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Mehndi -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L15 9H9L12 2z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v13" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 22c3-2 6-5 6-9s-3-7-6-9c-3 2-6 5-6 9s3 7 6 9z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Mehndi Artists</p>
+                    </div>
                     <!-- Photographers -->
                     <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
                         <svg class="w-12 h-12 mx-auto text-accent-color mb-3" fill="none" viewBox="0 0 24 24"
@@ -201,6 +257,24 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         <p class="text-lg font-semibold">Photographers</p>
+                    </div>
+                    <!-- Singer -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.75 2.75a3.5 3.5 0 0 1 4.95 4.95l-8.49 8.49a3.5 3.5 0 0 1-4.95-4.95l8.49-8.49zm-2.12 11.61l2.12 2.12m-10.61 2.12l3.54-3.54" />
+                        </svg>
+                        <p class="text-lg font-semibold">Singer</p>
+                    </div>
+                    <!-- Musicians -->
+                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
+                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 19V7l7-3.5L16 17zM9 19c0 1.105-1.79 2-4 2s-4-.895-4-2h8zM16 17c0 1.105-1.79 2-4 2s-4-.895-4-2h8z" />
+                        </svg>
+                        <p class="text-lg font-semibold">Musicians</p>
                     </div>
                     <!-- Make-up Artist -->
                     <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
@@ -231,55 +305,19 @@
                         </svg>
                         <p class="text-lg font-semibold">Choreographer</p>
                     </div>
-                    <!-- Singer -->
-                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
-                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M16.75 2.75a3.5 3.5 0 0 1 4.95 4.95l-8.49 8.49a3.5 3.5 0 0 1-4.95-4.95l8.49-8.49zm-2.12 11.61l2.12 2.12m-10.61 2.12l3.54-3.54" />
-                        </svg>
-                        <p class="text-lg font-semibold">Singer</p>
-                    </div>
-                    <!-- Musicians -->
-                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
-                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 19V7l7-3.5L16 17zM9 19c0 1.105-1.79 2-4 2s-4-.895-4-2h8zM16 17c0 1.105-1.79 2-4 2s-4-.895-4-2h8z" />
-                        </svg>
-                        <p class="text-lg font-semibold">Musicians</p>
-                    </div>
                     <!-- Cartoon-Mascot-->
                     <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-accent-color/50">
                         <svg class="w-12 h-12 mx-auto text-primary-color mb-3" viewBox="0 0 64 64" fill="none"
                             stroke="currentColor" stroke-width="2">
-                            <!-- Head -->
                             <circle cx="32" cy="32" r="30" stroke-linecap="round" stroke-linejoin="round" />
-                            <!-- Eyes -->
                             <circle cx="22" cy="28" r="4" fill="currentColor" />
                             <circle cx="42" cy="28" r="4" fill="currentColor" />
-                            <!-- Smile -->
                             <path d="M20 42c4 4 16 4 20 0" stroke-linecap="round" stroke-linejoin="round" />
-                            <!-- Cheeks -->
                             <circle cx="18" cy="38" r="2" fill="currentColor" />
                             <circle cx="46" cy="38" r="2" fill="currentColor" />
-                            <!-- Optional playful tuft/hair -->
                             <path d="M32 4c2 6 4 6 6 0" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <p class="text-lg font-semibold">Cartoon-Mascot</p>
-                    </div>
-                    <!-- Mehandi -->
-                    <div class="artist-card bg-slate-800 p-6 rounded-xl text-center border-b-4 border-primary-color/50">
-                        <svg class="w-12 h-12 mx-auto text-primary-color mb-3" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L15 9H9L12 2z" />
-                            <!-- cone tip -->
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v13" /> <!-- cone body -->
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 22c3-2 6-5 6-9s-3-7-6-9c-3 2-6 5-6 9s3 7 6 9z" />
-                            <!-- swirl/hand-like pattern -->
-                        </svg>
-                        <p class="text-lg font-semibold">Mehandi Artists</p>
                     </div>
                 </div>
             </div>
@@ -306,14 +344,12 @@
             </div>
 
             <div class="box">
-                <img src="images\singer.jpg"
-                    alt="Singer">
+                <img src="images\singer.jpg" alt="Singer">
                 <div class="caption">Singer</div>
             </div>
 
             <div class="box">
-                <img src="images\cartoon_moscot.jpg"
-                    alt="Makeup Artist">
+                <img src="images\cartoon_moscot.jpg" alt="Makeup Artist">
                 <div class="caption">Cartoon-Mascot</div>
             </div>
 
@@ -321,116 +357,330 @@
                 <img src="images\mehandi.jpg" alt="Dancer">
                 <div class="caption">Mehandi</div>
             </div>
-            
+
         </div>
 
-
-        <!-- Footer -->
-        <footer class="bg-slate-900 border-t border-primary-color/20 p-8">
-            <div class="max-w-7xl mx-auto text-center text-slate-400">
-                <p class="text-xl font-bold mb-2 text-gradient">AOD</p>
-                <p class="text-sm">Connecting you with the best artistic talent, on demand. &copy; 2025 Artists On
-                    Demand.
+        <!-- Booking/Demand Form Section -->
+        <section id="booking-form" class="py-16 md:py-24">
+            <div class="max-w-xl mx-auto px-4">
+                <h1 class="text-4xl font-bold text-center mb-4 text-white">
+                    <span class="text-gradient">Book Artists</span>
+                </h1>
+                <p class="text-center text-slate-400 mb-8">
+                    Register now to book the perfect artists for your special occasion.
                 </p>
-                <div class="mt-4 space-x-4">
-                    <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Privacy Policy</a>
-                    <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Terms of Service</a>
-                    <div>
-                        <a href="https://forms.gle/rLEjHTNqUAt4W4nj9" class="hover:text-primary-color transition duration-150 text-sm">Become an Artist</a>
+
+                <!-- Artist Booking Form with API Integration -->
+                <form id="bookingForm" class="bg-slate-800 p-8 rounded-2xl shadow-2xl border border-orange-500/50">
+                    <div class="space-y-6">
+                        <!-- Full Name -->
+                        <div>
+                            <label for="fullName" class="block text-sm font-medium text-slate-300 mb-1">
+                                Your Full Name *
+                            </label>
+                            <input type="text" name="name" id="fullName" required placeholder="e.g., Hiren Paghadal"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-300 mb-1">
+                                Email Address *
+                            </label>
+                            <input type="email" name="email" id="email" required placeholder="abc@gmail.com"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label for="phoneNumber" class="block text-sm font-medium text-slate-300 mb-1">
+                                Phone Number *
+                            </label>
+                            <input type="tel" name="phoneNumber" id="phoneNumber" required placeholder="+91 9876543210"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Artist Type (Multiple Selection) -->
+                        <div>
+                            <span class="block text-sm font-medium text-slate-300 mb-2">Select Artists Required *
+                                <p class="text-xs text-slate-500 mt-1">You can select multiple artists.</p>
+                            </span>
+                            <div class="grid grid-cols-2 gap-3 text-slate-200">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Mehndi Artists"
+                                        class="accent-orange-500">
+                                    <span>Mehndi Artists</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Photographers"
+                                        class="accent-orange-500">
+                                    <span>Photographers</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Singer" class="accent-orange-500">
+                                    <span>Singer</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Musicians" class="accent-orange-500">
+                                    <span>Musicians</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Make-up Artists"
+                                        class="accent-orange-500">
+                                    <span>Make-up Artists</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Anchor" class="accent-orange-500">
+                                    <span>Anchor</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Choreographer"
+                                        class="accent-orange-500">
+                                    <span>Choreographer</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="artists" value="Cartoon-Mascot"
+                                        class="accent-orange-500">
+                                    <span>Cartoon-Mascot</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Date & Time: From -->
+                        <div>
+                            <label for="artistNeededFromTime" class="block text-sm font-medium text-slate-300 mb-1">
+                                Artist Needed From *
+                            </label>
+                            <input type="datetime-local" name="artistNeededFromTime" id="artistNeededFromTime" required
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Date & Time: To -->
+                        <div>
+                            <label for="artistNeededToTime" class="block text-sm font-medium text-slate-300 mb-1">
+                                Artist Needed To *
+                            </label>
+                            <input type="datetime-local" name="artistNeededToTime" id="artistNeededToTime" required
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Location -->
+                        <div>
+                            <label for="location" class="block text-sm font-medium text-slate-300 mb-1">
+                                Location *
+                            </label>
+                            <input type="text" name="location" id="location" required
+                                placeholder="e.g., Which location you need Artist enter that location"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label for="eventDetails" class="block text-sm font-medium text-slate-300 mb-1">
+                                Event Details / Demand (Be Specific!)
+                            </label>
+                            <textarea name="eventDetails" id="eventDetails" rows="4"
+                                placeholder="Enter more details of your special occasion or any specific demands"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submitBtn"
+                            class="w-full py-3 bg-orange-600 text-white text-lg font-bold rounded-xl shadow-lg hover:bg-orange-500 transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span id="submitText">Submit My Demand</span>
+                            <div id="submitSpinner" class="spinner hidden"></div>
+                        </button>
                     </div>
-                </div>
+                </form>
+
+                <p class="text-xs text-center text-slate-500 mt-4">
+                    Your information will be securely stored and our team will contact you within 24 hours.
+                </p>
             </div>
-        </footer>
+        </section>
+    </div>
 
-        <!-- JavaScript for Form Handling and Modal -->
-        <script>
-            document.getElementById('demandForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Stop the form from submitting normally
 
-                // 1. Collect form data
-                const formData = {
-                    fullName: document.getElementById('fullName').value,
-                    contact: document.getElementById('contact').value,
-                    artistType: document.getElementById('artistType').value,
-                    description: document.getElementById('description').value
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-primary-color/20 p-8">
+        <div class="max-w-7xl mx-auto text-center text-slate-400">
+            <p class="text-xl font-bold mb-2 text-gradient">AOD</p>
+            <p class="text-sm">Connecting you with the best artistic talent, on demand. &copy; 2025 Artists On Demand.
+            </p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Privacy Policy</a>
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Terms of Service</a>
+                <a href="become-artist.html" class="hover:text-primary-color transition duration-150 text-sm">Become an
+                    Artist</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for API Integration -->
+    <script>
+        // API URL from Google Apps Script
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwDL9rBaXaqVqj3nTh6SFFaaZe1KGxgoe_36nJ1snZgzhWNbjxkc3iO0tuzHiZpHkhU/exec';
+
+        // Form submission handler
+        document.getElementById('bookingForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            // Get form elements
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            submitSpinner.classList.remove('hidden');
+
+            try {
+                // Collect form data
+                const formData = new FormData(event.target);
+
+                // Get all selected artists
+                const selectedArtists = Array.from(document.querySelectorAll('input[name="artists"]:checked'))
+                    .map(cb => cb.value)
+                    .join(', ');
+
+                // Validate at least one artist is selected
+                if (!selectedArtists) {
+                    showError('Please select at least one artist type');
+                    return;
+                }
+
+                // Format datetime for better readability
+                const formatDateTime = (dateTimeStr) => {
+                    if (!dateTimeStr) return '';
+                    const date = new Date(dateTimeStr);
+                    return date.toLocaleString('en-IN', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    });
                 };
 
-                // 2. Placeholder for API/Backend Call (where you'd send the demand)
-                console.log("Customer Demand Submitted:", formData);
-                // In a real application, you would use fetch() here to send this data to your server/database.
-                // Example:
-                /*
-                fetch('/api/submit-demand', {
+                // Prepare data object matching API schema
+                const bookingData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phoneNumber: formData.get('phoneNumber'),
+                    requiredArtists: selectedArtists,
+                    artistNeededFromTime: formatDateTime(formData.get('artistNeededFromTime')),
+                    artistNeededToTime: formatDateTime(formData.get('artistNeededToTime')),
+                    location: formData.get('location'),
+                    eventDetails: formData.get('eventDetails') || 'No additional details provided'
+                };
+
+                console.log('Submitting booking data:', bookingData);
+
+                // Send POST request to Google Apps Script API
+                const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        showModal();
-                        event.target.reset(); // Clear form on success
-                    } else {
-                        console.error('Submission failed.');
-                        // Handle error state
-                    }
-                })
-                .catch(error => {
-                    console.error('Error during submission:', error);
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bookingData),
+                    redirect: 'follow',
+                    mode: 'no-cors' // Required for Google Apps Script
                 });
-                */
 
-                // 3. For this example, we just simulate success and show the modal
+                // Note: With no-cors mode, we can't read the response
+                // But if the request completes without error, we assume success
+                console.log('Booking submitted successfully');
+
+                // Show success modal
                 showModal();
-                event.target.reset(); // Clear the form fields
-            });
 
-            // Function to show the custom success modal
-            function showModal() {
-                const modal = document.getElementById('successModal');
-                modal.classList.remove('invisible', 'opacity-0');
-                modal.classList.add('visible', 'opacity-100');
-                // Allow clicking outside the modal to close it
-                modal.addEventListener('click', closeModalOutside);
-                // Re-center on mobile resize
-                window.addEventListener('resize', centerModal);
-                centerModal();
+                // Reset form
+                event.target.reset();
+
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                showError('Failed to submit booking. Please try again or contact support.');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                submitSpinner.classList.add('hidden');
             }
+        });
 
-            // Function to close the custom success modal
-            function closeModal() {
-                const modal = document.getElementById('successModal');
-                modal.classList.remove('visible', 'opacity-100');
-                modal.classList.add('invisible', 'opacity-0');
-                modal.removeEventListener('click', closeModalOutside);
-                window.removeEventListener('resize', centerModal);
+        // Function to show the success modal
+        function showModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('invisible', 'opacity-0');
+            modal.classList.add('visible', 'opacity-100');
+
+            // Allow clicking outside the modal to close it
+            modal.addEventListener('click', closeModalOutside);
+        }
+
+        // Function to close the success modal
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('visible', 'opacity-100');
+            modal.classList.add('invisible', 'opacity-0');
+            modal.removeEventListener('click', closeModalOutside);
+        }
+
+        // Handle closing when clicking outside the inner content
+        function closeModalOutside(event) {
+            const modal = document.getElementById('successModal');
+            const innerContent = modal.querySelector('div > div');
+            if (!innerContent.contains(event.target)) {
+                closeModal();
             }
+        }
 
-            // Handle closing when clicking outside the inner content
-            function closeModalOutside(event) {
-                const modal = document.getElementById('successModal');
-                const innerContent = modal.querySelector('div:not(.modal)');
-                if (!innerContent.contains(event.target) && event.target === modal) {
-                    closeModal();
+        // Function to show error modal
+        function showError(message) {
+            const errorModal = document.getElementById('errorModal');
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+
+            errorModal.classList.remove('invisible', 'opacity-0');
+            errorModal.classList.add('visible', 'opacity-100');
+
+            // Allow clicking outside the modal to close it
+            errorModal.addEventListener('click', closeErrorModalOutside);
+        }
+
+        // Function to close the error modal
+        function closeErrorModal() {
+            const errorModal = document.getElementById('errorModal');
+            errorModal.classList.remove('visible', 'opacity-100');
+            errorModal.classList.add('invisible', 'opacity-0');
+            errorModal.removeEventListener('click', closeErrorModalOutside);
+        }
+
+        // Handle closing error modal when clicking outside
+        function closeErrorModalOutside(event) {
+            const errorModal = document.getElementById('errorModal');
+            const innerContent = errorModal.querySelector('div > div');
+            if (!innerContent.contains(event.target)) {
+                closeErrorModal();
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-            }
-
-            // Basic function to ensure modal content is centered (helpful for mobile)
-            function centerModal() {
-                const modal = document.getElementById('successModal');
-                const content = modal.querySelector('div:not(.modal)');
-                if (content) {
-                    // Not strictly necessary with flex, but good practice for transform transitions
-                    content.style.marginTop = (window.innerHeight - content.offsetHeight) / 2 + 'px';
-                }
-            }
-
-            // Initial check to remove temporary style if JS fails
-            document.addEventListener('DOMContentLoaded', () => {
-                document.body.style.display = '';
             });
-
-        </script>
-    </div>
+        });
+    </script>
 </body>
 
 </html>
