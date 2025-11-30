@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become an Artist | AOD - Artists On Demand</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f97316;
+            --accent-color: #0ea5e9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
+
+        .text-gradient {
+            background-image: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #f97316;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Success Modal -->
+    <div id="successModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0">
+        <div
+            class="bg-slate-800 rounded-xl p-6 shadow-2xl max-w-sm w-full transform transition-all scale-95 duration-300">
+            <div class="text-center">
+                <svg class="w-16 h-16 mx-auto text-orange-600 mb-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <h3 class="text-2xl font-bold text-white mb-2">Welcome to AOD!</h3>
+                <p class="text-slate-300">Thank you for joining our Super Artist network! We'll review your profile and get back to you within 48 hours.</p>
+                <button onclick="closeModal()"
+                    class="mt-5 w-full py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-500 transition duration-150">
+                    Great!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0">
+        <div
+            class="bg-slate-800 rounded-xl p-6 shadow-2xl max-w-sm w-full transform transition-all scale-95 duration-300">
+            <div class="text-center">
+                <svg class="w-16 h-16 mx-auto text-red-500 mb-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                <h3 class="text-2xl font-bold text-white mb-2">Submission Failed</h3>
+                <p id="errorMessage" class="text-slate-300">Something went wrong. Please try again.</p>
+                <button onclick="closeErrorModal()"
+                    class="mt-5 w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-150">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="p-4 md:p-6 sticky top-0 bg-slate-900/90 backdrop-blur-sm z-40 border-b border-primary-color/20">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <a href="index.html" class="text-3xl font-extrabold text-gradient tracking-tight">
+                    AOD<span class="text-white text-lg font-medium">/Artists On Demand</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="index.html#artists-types"
+                        class="text-white px-4 py-2 rounded-lg shadow-lg hover:bg-primary-color transition duration-300 transform hover:scale-105">
+                        Artists
+                    </a>
+                    <a href="index.html#booking-form"
+                        class="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:bg-orange-500 transition duration-300 transform hover:scale-105">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative py-16 md:py-24 text-center overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-10"
+                style="background-image: url('https://placehold.co/1920x1080/0f172a/f97316?text=Artistic+Energy');">
+            </div>
+
+            <div class="relative z-10 max-w-4xl mx-auto px-4">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">
+                    Join Our <span class="text-gradient">Super Artist</span> Network
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto">
+                    Showcase your talent, get booked for amazing events, and grow your artistic career with AOD.
+                </p>
+            </div>
+        </section>
+
+        <!-- Artist Registration Form Section -->
+        <section class="py-16 md:py-24">
+            <div class="max-w-2xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4 text-white">
+                        Artist <span class="text-gradient">Registration</span>
+                    </h2>
+                    <p class="text-slate-400">
+                        Fill out the form below to join our elite network of talented artists. We'll review your profile and connect you with exciting opportunities!
+                    </p>
+                </div>
+
+                <!-- Artist Registration Form -->
+                <form id="artistForm"
+                    class="bg-slate-800 p-8 rounded-2xl shadow-2xl border border-orange-500/50">
+                    <div class="space-y-6">
+                        <!-- Full Name -->
+                        <div>
+                            <label for="artistName" class="block text-sm font-medium text-slate-300 mb-1">
+                                Full Name *
+                            </label>
+                            <input type="text" id="artistName" name="name" required
+                                placeholder="e.g., Priya Sharma"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="artistEmail" class="block text-sm font-medium text-slate-300 mb-1">
+                                Email Address *
+                            </label>
+                            <input type="email" id="artistEmail" name="email" required
+                                placeholder="your.email@example.com"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="artistPhone" class="block text-sm font-medium text-slate-300 mb-1">
+                                Phone Number *
+                            </label>
+                            <input type="tel" id="artistPhone" name="phoneNumber" required
+                                placeholder="+91 9876543210"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Artistic Proficiencies -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">
+                                Artistic Proficiencies *
+                                <p class="text-xs text-slate-500 mt-1">Select all that apply</p>
+                            </label>
+                            <div class="grid grid-cols-2 gap-3 text-slate-200">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Mehndi Artist" class="accent-orange-500">
+                                    <span>Mehndi Artist</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Photographer" class="accent-orange-500">
+                                    <span>Photographer</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Singer" class="accent-orange-500">
+                                    <span>Singer</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Musician" class="accent-orange-500">
+                                    <span>Musician</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Make-up Artist" class="accent-orange-500">
+                                    <span>Make-up Artist</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Anchor" class="accent-orange-500">
+                                    <span>Anchor</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Choreographer" class="accent-orange-500">
+                                    <span>Choreographer</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" name="proficiencies" value="Cartoon-Mascot" class="accent-orange-500">
+                                    <span>Cartoon-Mascot</span>
+                                </label>
+                                <label class="flex items-center space-x-2 col-span-2">
+                                    <input type="checkbox" id="otherProficiency" name="proficiencies" value="Other" class="accent-orange-500" onchange="toggleOtherField()">
+                                    <span>Other (Please specify)</span>
+                                </label>
+                            </div>
+                            <!-- Other Proficiency Text Field -->
+                            <div id="otherProficiencyField" class="mt-3 hidden">
+                                <input type="text" id="otherProficiencyText" name="otherProficiency" 
+                                    placeholder="Please specify your artistic proficiency"
+                                    class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                            </div>
+                        </div>
+
+                        <!-- City -->
+                        <div>
+                            <label for="artistCity" class="block text-sm font-medium text-slate-300 mb-1">
+                                City *
+                            </label>
+                            <input type="text" id="artistCity" name="city" required
+                                placeholder="e.g., Mumbai"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                        </div>
+
+                        <!-- Location -->
+                        <div>
+                            <label for="artistLocation" class="block text-sm font-medium text-slate-300 mb-1">
+                                Full Location/Address *
+                            </label>
+                            <textarea id="artistLocation" name="location" rows="3" required
+                                placeholder="Enter your complete address"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition"></textarea>
+                        </div>
+
+                        <!-- Portfolio Link -->
+                        <div>
+                            <label for="artistPortfolio" class="block text-sm font-medium text-slate-300 mb-1">
+                                Portfolio Link
+                                <span class="text-xs text-slate-500 ml-1">(Optional)</span>
+                            </label>
+                            <input type="url" id="artistPortfolio" name="portfolio"
+                                placeholder="https://your-portfolio.com or Instagram/YouTube profile"
+                                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-orange-500 focus:border-orange-500 transition">
+                            <p class="text-xs text-slate-500 mt-1">Share your Instagram, YouTube, website, or any link showcasing your work</p>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="artistSubmitBtn"
+                            class="w-full py-3 bg-orange-600 text-white text-lg font-bold rounded-xl shadow-lg hover:bg-orange-500 transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span id="artistSubmitText">Join as Super Artist</span>
+                            <div id="artistSubmitSpinner" class="spinner hidden"></div>
+                        </button>
+                    </div>
+                </form>
+
+                <p class="text-xs text-center text-slate-500 mt-4">
+                    Your information will be reviewed by our team. We'll contact you within 48 hours with next steps.
+                </p>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="py-16 bg-slate-900">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-white">Why Join AOD?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Benefit 1 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Great Earnings</h3>
+                        <p class="text-slate-400">Get paid well for your talent and skills. We ensure fair compensation for all artists.</p>
+                    </div>
+
+                    <!-- Benefit 2 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-sky-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Premium Events</h3>
+                        <p class="text-slate-400">Work with top clients at weddings, corporate events, and exclusive parties.</p>
+                    </div>
+
+                    <!-- Benefit 3 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Flexible Schedule</h3>
+                        <p class="text-slate-400">Choose when and where you want to work. Complete control over your bookings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-primary-color/20 p-8">
+        <div class="max-w-7xl mx-auto text-center text-slate-400">
+            <p class="text-xl font-bold mb-2 text-gradient">AOD</p>
+            <p class="text-sm">Connecting you with the best artistic talent, on demand. &copy; 2025 Artists On Demand.
+            </p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Privacy Policy</a>
+                <a href="#" class="hover:text-primary-color transition duration-150 text-sm">Terms of Service</a>
+                <a href="become-artist.html" class="hover:text-primary-color transition duration-150 text-sm">Become an Artist</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Form Handling -->
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwDL9rBaXaqVqj3nTh6SFFaaZe1KGxgoe_36nJ1snZgzhWNbjxkc3iO0tuzHiZpHkhU/exec';
+
+        // Toggle "Other" proficiency text field
+        function toggleOtherField() {
+            const otherCheckbox = document.getElementById('otherProficiency');
+            const otherField = document.getElementById('otherProficiencyField');
+            const otherTextInput = document.getElementById('otherProficiencyText');
+            
+            if (otherCheckbox.checked) {
+                otherField.classList.remove('hidden');
+                otherTextInput.required = true;
+            } else {
+                otherField.classList.add('hidden');
+                otherTextInput.required = false;
+                otherTextInput.value = '';
+            }
+        }
+
+        // Artist form submission
+        document.getElementById('artistForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('artistSubmitBtn');
+            const submitText = document.getElementById('artistSubmitText');
+            const submitSpinner = document.getElementById('artistSubmitSpinner');
+
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            submitSpinner.classList.remove('hidden');
+
+            try {
+                const formData = new FormData(event.target);
+                
+                // Get all selected proficiencies
+                let selectedProficiencies = Array.from(document.querySelectorAll('input[name="proficiencies"]:checked'))
+                    .map(cb => cb.value)
+                    .filter(val => val !== 'Other'); // Exclude "Other" placeholder
+
+                // Add the custom "Other" proficiency if specified
+                const otherCheckbox = document.getElementById('otherProficiency');
+                const otherText = document.getElementById('otherProficiencyText').value.trim();
+                
+                if (otherCheckbox.checked) {
+                    if (!otherText) {
+                        showError('Please specify your artistic proficiency in the "Other" field');
+                        submitBtn.disabled = false;
+                        submitText.classList.remove('hidden');
+                        submitSpinner.classList.add('hidden');
+                        return;
+                    }
+                    selectedProficiencies.push(otherText);
+                }
+
+                const proficienciesString = selectedProficiencies.join(', ');
+
+                // Validate at least one proficiency is selected
+                if (!proficienciesString) {
+                    showError('Please select at least one artistic proficiency');
+                    submitBtn.disabled = false;
+                    submitText.classList.remove('hidden');
+                    submitSpinner.classList.add('hidden');
+                    return;
+                }
+
+                // Prepare data object
+                const portfolioLink = formData.get('portfolio') || 'Not provided';
+                const artistData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phoneNumber: formData.get('phoneNumber'),
+                    requiredArtists: proficienciesString,
+                    artistNeededFromTime: 'Artist Registration',
+                    artistNeededToTime: formData.get('city'),
+                    location: formData.get('location'),
+                    eventDetails: 'ARTIST REGISTRATION - City: ' + formData.get('city') + ' | Proficiencies: ' + proficienciesString + ' | Portfolio: ' + portfolioLink
+                };
+
+                console.log('Submitting artist data:', artistData);
+
+                // Send to API
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(artistData),
+                    redirect: 'follow',
+                    mode: 'no-cors'
+                });
+
+                console.log('Artist registration submitted successfully');
+                
+                // Show success modal
+                showModal();
+                
+                // Reset form
+                event.target.reset();
+                // Hide the "Other" field after reset
+                document.getElementById('otherProficiencyField').classList.add('hidden');
+
+            } catch (error) {
+                console.error('Error submitting artist registration:', error);
+                showError('Failed to submit registration. Please try again or contact support.');
+            } finally {
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                submitSpinner.classList.add('hidden');
+            }
+        });
+
+        // Show success modal
+        function showModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('invisible', 'opacity-0');
+            modal.classList.add('visible', 'opacity-100');
+        }
+
+        // Close success modal
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('visible', 'opacity-100');
+            modal.classList.add('invisible', 'opacity-0');
+        }
+
+        // Show error modal
+        function showError(message) {
+            const errorModal = document.getElementById('errorModal');
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            
+            errorModal.classList.remove('invisible', 'opacity-0');
+            errorModal.classList.add('visible', 'opacity-100');
+        }
+
+        // Close error modal
+        function closeErrorModal() {
+            const errorModal = document.getElementById('errorModal');
+            errorModal.classList.remove('visible', 'opacity-100');
+            errorModal.classList.add('invisible', 'opacity-0');
+        }
+    </script>
+</body>
+
+</html>
